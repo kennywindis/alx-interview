@@ -4,17 +4,15 @@
 
 
 def pascal_triangle(n):
-    """returns pascal's triangle of n"""
+    """return pascal's triangle"""
 
-    if n <= 0
-
-return []
-    k = [[1]]
+    if n <= 0:
+        return []
+    out = [[1]]
     for i in range(n - 1):
-        t = [0] + k[-1] + [0]
+        temp = [0] + out[-1] + [0]
         row = []
-        for d in range(len(k[-1]) + 1):
-            row.append(t[d] + t[d + 1])
+        for j in range(len(out[-1]) + 1):
+            row.append(temp[j] + temp[j + 1])
         out.append(row)
-    return k
-
+    return out
