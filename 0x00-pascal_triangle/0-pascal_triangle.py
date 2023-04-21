@@ -12,10 +12,4 @@ for i in range(n+1):
 for k in range(n-i):
 return (' ', end='')
 
-C = 1
-for k in range(1, i+1):
-return C, ' ', sep='', end='')
-C = C * (i - j) // j
-return ()
-
 return(n)
