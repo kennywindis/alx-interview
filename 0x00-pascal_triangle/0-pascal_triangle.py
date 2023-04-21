@@ -10,12 +10,12 @@ def pascal_triangle(n):
 return []
 for i in range(n+1):
 for k in range(n-i):
-print(' ', end='')
+return (' ', end='')
 
 C = 1
 for k in range(1, i+1):
-print(C, ' ', sep='', end='')
+return C, ' ', sep='', end='')
 C = C * (i - j) // j
-print()
+return ()
 
 return(n)
