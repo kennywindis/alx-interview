@@ -1,13 +1,16 @@
 #!/usr/bin/python3
+"""
+A method that calculates fewest number of operations to result in characthers in file
 
-""" A method that calculates fewest number of operations to give characthers in file """.
+"""
+
 
 def minOperations(n):
-    nk = 0
-    mink = 2
+    nOpe = 0
+    minOpe = 2
     while n > 1:
-        while n % mink == 0:
-            nOpe += mink
-            n /= mink
-        
-    return nk
+        while n % minOpe == 0:
+            nOpe += minOpe
+            n /= minOpe
+        minOpe += 1
+    return nOpe
