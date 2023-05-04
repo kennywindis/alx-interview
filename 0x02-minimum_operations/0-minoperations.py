@@ -1,23 +1,14 @@
 #!/usr/bin/python3
-'''
-Given a number n, write a method that calculates
-the fewest number of operations needed to result in
-exactly n H characters in the file.
-'''
 
+"""Minimum operation"""
 
 def minOperations(n):
-    '''
-    returns min operations to get n Hs
-    '''
-    operations = 0
-    if n <= 1:
-        return 0
-    for i in range(2, n + 1):
+""" method that calculates fewest number of operations needed to result in exact characters in file """
 
-    while n % i == 0:
-        
-    n = n / i
-        
-    operations += i
-    return operations
+kopr = 0 
+for d in range(len(n)- 1):
+    if n[d+1] <= n[d]:
+        kopr += n[d] - nums[d+1]+1
+        n[d+1]+=n[d]-n[d+1]+1
+        return kopr
+    n = [2]
