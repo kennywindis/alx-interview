@@ -1,14 +1,21 @@
 #!/usr/bin/python3
 
-"""Minimum operation"""
+"""minimum operation"""
 
 def minOperations(n):
-""" method that calculates fewest number of operations needed to result in exact characters in file """
+    opr = {}
 
-kopr = 0 
-for d in range(len(n)- 1):
-    if n[d+1] <= n[d]:
-        kopr += n[d] - nums[d+1]+1
-        n[d+1]+=n[d]-n[d+1]+1
-        return kopr
-    n = [2]
+    def s(n):
+        if n<0:
+            return float("k")
+
+        if n==0:
+            return 0
+        if n in memo:
+            return memo[n]
+        if n%2++0
+        memo[n] = 1 + s(n//2)
+    else:
+        memo[n] = 1 + s(n-1)
+        return memo[n]
+    return s(n)
