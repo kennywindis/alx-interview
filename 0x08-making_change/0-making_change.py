@@ -1,30 +1,22 @@
+#!/usr/bin/python3
 """ 0. Change comes from within """
 
 
-# Given a pile of coins of different values,
-# determine the fewest number of coins needed to meet a given amount total
 def makeChange(coins, total):
+    """ Given a pile of coins of different values, determine the fewest number
+        of coins needed to meet a given amount total.
     """
-    Returns the fewest number of coins needed to meet a given amount total
-    """
-    # create the 'array of ways'
-    matrix = [total + 1] * (total + 1)
-    matrix[0] = 0
-
-    # for each step of the matrix, l -> r
-    for n in range(1, total + 1):
-        # look at each coin in matrix
-        for coin in coins:
-            # if n (index of matrix) minus coin is greater than 0
-            if n - coin >= 0:
-                # Then we must be able to remove a coin
-                # Thus making the count of coins necessary less
-                matrix[n] = min(matrix[n], 1 + matrix[n - coin])
-
-    return matrix[total] if matrix[total] < total + 1 else -1
-
-
-if __name__ == "__main__":
-    print(makeChange([1, 2, 25], 37))
-
-    print(makeChange([1256, 54, 48, 16, 102], 1453))
+    if total < 1:
+        return 0
+    coins.sort()
+    coins.reverse()
+    fewest = 0
+    for coin in coins:
+        if total <= 0:
+            break
+        buff = total // coin
+        fewest += buff
+        total -= (buff * coin)
+    if total != 0:
+        return -1
+    return fewest
