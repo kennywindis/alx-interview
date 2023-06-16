@@ -1,28 +1,38 @@
 #!/usr/bin/node
 
 const request = require('request');
+const urlApi = 'https://swapi-api.hbtn.io/api/films/' + process.argv[2];
 
-const filmNum = process.argv[2] + '/';
-const filmURL = 'https://swapi-api.hbtn.io/api/films/';
-
-// Makes API request, sets async to allow await promise
-request(filmURL + filmNum, async function (err, res, body) {
-  if (err) return console.error(err);
-
-  // find URLs of each character in the film as a list obj
-  const charURLList = JSON.parse(body).characters;
-
-  // Use URL list to character pages to make new requests
-  // await queues requests until they resolve in order
-  for (const charURL of charURLList) {
-    await new Promise(function (resolve, reject) {
-      request(charURL, function (err, res, body) {
-        if (err) return console.error(err);
-
-        // finds each character name and prints in URL order
-        console.log(JSON.parse(body).name);
-        resolve();
-      });
+const promisifiedRequest = function (options) {
+  return new Promise((resolve, reject) => {
+    request(options, (error, response, body) => {
+      if (response) {
+        return resolve(response);
+      }
+      if (error) {
+        return reject(error);
+      }
     });
+  });
+};
+
+request(urlApi, function (error, response, body) {
+  if (error) {
+    console.error(error); // Print the error if one occurred
+    return;
   }
+  const jsonRes = JSON.parse(body);
+  const charUrl = jsonRes.characters;
+  (async function () {
+    for (let i = 0; i < charUrl.length; i++) {
+      const options = {
+        url: charUrl[i],
+        method: 'GET'
+      };
+
+      const response = await promisifiedRequest(options);
+
+      console.log(JSON.parse(response.body).name);
+    }
+  })();
 });
