@@ -1,42 +1,44 @@
 #!/usr/bin/python3
+"""
+The N Queens 
+Show all possible ways to place N non-attacking Queens on an NxN board
+"""
+
 import sys
+import math
+
+solutions = []
+can_place_count = [0]
+nqueens_count = [0]
+
+def can_place(board, row, col):
+    """Checks if [row, col] is a safe position on the board"""
+    can_place_count[0] += 1
+    for i in range(row):
+        if board[i] == col or abs(i - row) == abs(board[i] - col):
+            return False
+    return True
 
 
-def nqueens(n):
-    """ The N queens puzzle is the challenge
-            of placing N non-attacking queens on an N×N chessboard
-    """
-    def nqueensv2(queens, cord_dif, cord_sum):
-        """ Recursive function
-        """
-        p = len(queens)
-        if p == n:
-            result.append(queens)
-            return None
-        for q in range(n):
-            if q not in queens and p-q not in cord_dif and p+q not in cord_sum:
-                nqueensv2(queens + [q], cord_dif + [p - q], cord_sum + [p + q])
-    result = []
-    final_result = []
-    nqueensv2([], [], [])
-    for row in result:
-        for i, col in enumerate(row):
-            coord = [i, col]
-            final_result.append(coord)
-        print(final_result)
-        final_result = []
+def nqueens(board, row, n):
+    """O(n!) time, O(n) space"""
+    nqueens_count[0] += 1
+    if row == n:
+        return solutions.append(board[:])
+    for col in range(n):
+        if can_place(board, row, col):
+            board[row] = col
+            nqueens(board, row + 1, n)
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: nqueens N")
-        exit(1)
+        print("Usage: nqueens N") or exit(1)
     try:
         n = int(sys.argv[1])
     except ValueError:
-        print("N must be a number")
-        exit(1)
-    if int(sys.argv[1]) < 4:
-        print("N must be at least 4")
-        exit(1)
-    nqueens(n)
+        print("N must be a number") or exit(1)
+    if n < 4:
+        print("N must be at least 4") or exit(1)
+    nqueens([None] * n, 0, n)
+    [print([[row, col] for row, col in enumerate(sol)]) for sol in solutions]
+    print(n, can_place_count, nqueens_count, can_place_count[0]/nqueens_count[0], math.factorial(n), can_place_count[0]/(pow(2, n) + n))
